@@ -36,6 +36,7 @@ class Barbarian(Discipline):
 
 class Bard(Discipline):
     def __init__(self):
+        super().__init__() 
         #Enter stuff here
         self.description = "An inspiring magician whose power echoes the music of creation"
         self.class_name = "Bard"

@@ -14,9 +14,11 @@ import Dnd_Player as  pler
 ################################################################################
 player1 = pler.player()
 player2 = pler.player()
-print(player1.race.race_mod)
-print(player1.race.description)
-print(player1.discipline.class_name)
-print(player1.base_stats)
-print(pler.player.D10_Roll())
+print('\n\n\n\n')
+print(player1.discipline.hit_die)
+# print(player1.race.race_mod)
+# print(player1.race.description)
+# print(player1.discipline.class_name)
+# print(player1.base_stats)
+# print(pler.player.D10_Roll())
 #End of File

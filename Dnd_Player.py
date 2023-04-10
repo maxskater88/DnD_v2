@@ -14,6 +14,15 @@ import Dnd_Weapons_MRange as MR
 import Dnd_Weapons_SRange as SR
 
 ################################################################################
+#
+#       Notes
+#
+################################################################################
+'''
+Structure:
+
+'''
+################################################################################
 #       Create Player's Character
 ################################################################################
 class player:
@@ -44,7 +53,6 @@ class player:
     for subraces in races.values():
         for race in subraces:
             all_races.append(race)
-    
     
     ###INIT###        
     def __init__(self):
