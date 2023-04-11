@@ -8,10 +8,10 @@ import random as             rnd
 import Dnd_Classes as        disp
 import Dnd_Races as          rces
 import Dnd_Weapons as        weap
-import Dnd_Weapons_MMelee as MM
 import Dnd_Weapons_SMelee as SM
-import Dnd_Weapons_MRange as MR
 import Dnd_Weapons_SRange as SR
+import Dnd_Weapons_MMelee as MM
+import Dnd_Weapons_MRange as MR
 
 ################################################################################
 #
@@ -151,7 +151,7 @@ class player:
             #2 HandAxe OR any simple weapon
             #explorer's pack and 4 javelins
             wep_sel = input(
-                f'''Choose one of the following (enter 1a, 1b, 2a, 2b, or 3):\n
+                f'''Choose one of the following Starting Weapon(s) (enter 1a, 1b, 2a, 2b, or 3):\n
                 (1)(a) 1 GreatAxe, or (1)(b) any 1 of: {weap.Weapons.martial_melee}\n
                 (2)(a) 2 HandAxe   or (2)(b) any 1 of: {weap.Weapons.simple_melee} {weap.Weapons.simple_range}\n
                 (3) 1 Explorer's Pack and 4 Javelins\n''')

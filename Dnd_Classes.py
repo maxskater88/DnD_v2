@@ -6,10 +6,10 @@
 ################################################################################
 import Dnd_Player as  pler
 import Dnd_Weapons as weap 
-import Dnd_Weapons_MMelee as MM
 import Dnd_Weapons_SMelee as SM
-import Dnd_Weapons_MRange as MR
 import Dnd_Weapons_SRange as SR
+import Dnd_Weapons_MMelee as MM
+import Dnd_Weapons_MRange as MR
 
 ################################################################################
 #       DICIPLINES (CLASSES)
