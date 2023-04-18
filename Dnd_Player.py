@@ -49,7 +49,6 @@ class player:
                      "HP":       0,  "Armor Class":  0}
     
     all_races = []
-    
     for subraces in races.values():
         for race in subraces:
             all_races.append(race)
@@ -58,8 +57,20 @@ class player:
     def __init__(self):
         player.count_chars(self)
         print(f"--->  CREATING CHAR #{player.num_of_players}")
-        randomize_char = bool(int(input("--->Enter 1 for a randomized char\
-                                       \n--->Enter 0 for a customized char\n")))
+        
+        #Get Player to Input Custom Char Selection or Randomized
+        while True:
+            try:
+                randomize_char = input("--->Enter 1 for a randomized char\
+                                       \n--->Enter 0 for a customized char\n")
+                randomize_char = int(randomize_char)
+                if 0 <= randomize_char <= 1:
+                    break
+                else:
+                    print(f"{randomize_char} is not 0 or 1.")
+            except ValueError:
+                print(f"{randomize_char} is not an integer.")
+        
         self.base_stats =   player.M_Stat
         self.all_races = player.all_races
         if randomize_char:
@@ -73,19 +84,37 @@ class player:
             self.race = race
             self.discipline = discipline
             self.starting_weps = starting_weps
-            try:
-                randomize_stats = bool(int(input("---> Enter 1 for random stats\
-                                            \n---> Enter 0 to set stats\n")))
-            except:
-                print("You must enter an integer value between 0 and 1")
+
+            while True:
+                #Get Player to Rand (let game roll 4xD6) stats or set their own stat values
+                try:
+                    randomize_stats = input("---> Enter 1 for random stats\
+                                            \n---> Enter 0 to set stats\n")
+                    randomize_stats = int(randomize_stats)
+                    if 0 <= randomize_stats <= 1:
+                        break
+                    else:
+                        print(f"{randomize_stats} is not 0 or 1.")
+                except ValueError:
+                    print(f"{randomize_stats} is not an integer.")
             if randomize_stats:
+                #Randomize
                 self.base_stats = player.roll_main_stats_rand(self.base_stats)
             else:
+                #Enter Stats by Hand
+                #Currently just requiring a value between min/max possible roll
                 for stat in player.stats:
-                    #Need to validate the inputs. Not sure what the constraints are.
-                    self.base_stats[stat] = int(input(f"Enter {stat}: "))         
-
-
+                    while True:
+                        try:
+                            self.base_stats[stat] = input(f"Enter {stat}: ")
+                            self.base_stats[stat] = int(self.base_stats[stat])
+                            if 3 <= self.base_stats[stat] <= 18:
+                                break
+                            else:
+                                print(f"{self.base_stats[stat]} is not between 3 and 18.")
+                        except ValueError:
+                            print(f"{self.base_stats[stat]} is not an integer.")
+                         
     def get_race(all_races):
         #Could add exception to load previous char 
         selected_race = None
@@ -150,12 +179,14 @@ class player:
             #Greataxe OR any martial mele
             #2 HandAxe OR any simple weapon
             #explorer's pack and 4 javelins
-            wep_sel = input(
-                f'''Choose one of the following Starting Weapon(s) (enter 1a, 1b, 2a, 2b, or 3):\n
-                (1)(a) 1 GreatAxe, or (1)(b) any 1 of: {weap.Weapons.martial_melee}\n
-                (2)(a) 2 HandAxe   or (2)(b) any 1 of: {weap.Weapons.simple_melee} {weap.Weapons.simple_range}\n
-                (3) 1 Explorer's Pack and 4 Javelins\n''')
-            
+            wep_sel = ""
+            inital = None
+            while wep_sel not in("1a", "1b", "2a", "2b", "3"):
+                wep_sel = input(
+                    f'''Choose one of the following Starting Weapon(s) (enter 1a, 1b, 2a, 2b, or 3):\n
+                    (1)(a) 1 GreatAxe, or (1)(b) any 1 of: {weap.Weapons.martial_melee}\n
+                    (2)(a) 2 HandAxe   or (2)(b) any 1 of: {weap.Weapons.simple_melee} {weap.Weapons.simple_range}\n
+                    (3) 1 Explorer's Pack and 4 Javelins\n''')
             if wep_sel == "1a":
                 inital = [MM.GreatAxe]
             elif wep_sel == "1b":
@@ -203,3 +234,6 @@ class player:
             print(f"For {stat} your d6 roll(s) are: {sumTot_orig} and your total is {sol}")
             Main_Stat[stat] += sol
         return Main_Stat
+    
+
+            

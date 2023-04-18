@@ -12,9 +12,15 @@ import Dnd_Player as  pler
 ################################################################################
 #       MAIN
 ################################################################################
+print(pler.player.num_of_players)
 player1 = pler.player()
 player2 = pler.player()
 print('\n\n\n\n')
+print(player1.discipline.hit_die)
+print(player1.discipline.hit_die)
+print(player1.discipline.hit_die)
+print(player1.discipline.hit_die)
+print(player1.discipline.hit_die)
 print(player1.discipline.hit_die)
 # print(player1.race.race_mod)
 # print(player1.race.description)
