@@ -5,7 +5,7 @@
 #
 ################################################################################
 import random as             rnd
-import Dnd_Classes as        disp
+import Dnd_Classes as        discipline
 import Dnd_Races as          rces
 import Dnd_Weapons as        weap
 import Dnd_Weapons_SMelee as SM
@@ -147,35 +147,35 @@ class player:
             selected_class = input(f"Select a Class:\n {FightClasses} \n")
         #Assigning Class of Warrior to a Class Object based on what was entered 
         if   selected_class == "Barbarian":
-            selected_class = disp.Barbarian()
+            selected_class = discipline.Barbarian()
         elif selected_class == "Bard":
-            selected_class = disp.Bard()
+            selected_class = discipline.Bard()
         elif selected_class == "Cleric":
-            selected_class = disp.Cleric()
+            selected_class = discipline.Cleric()
         elif selected_class == "Druid":
-            selected_class = disp.Druid()
+            selected_class = discipline.Druid()
         elif selected_class == "Fighter":
-            selected_class = disp.Fighter()
+            selected_class = discipline.Fighter()
         elif selected_class == "Monk":
-            selected_class = disp.Monk()
+            selected_class = discipline.Monk()
         elif selected_class == "Paladin":
-            selected_class = disp.Paladin()
+            selected_class = discipline.Paladin()
         elif selected_class == "Ranger":
-            selected_class = disp.Ranger()  
+            selected_class = discipline.Ranger()  
         elif selected_class == "Rogue":
-            selected_class = disp.Rogue()
+            selected_class = discipline.Rogue()
         elif selected_class == "Sorcerer":
-            selected_class = disp.Sorcerer()
+            selected_class = discipline.Sorcerer()
         elif selected_class == "Warlock":
-            selected_class = disp.Warlock()
+            selected_class = discipline.Warlock()
         elif selected_class == "Wizard":
-            selected_class = disp.Wizard()
+            selected_class = discipline.Wizard()
         else:
             print("ERROR E0002")
         return selected_class    
 
     def get_starting_equip(discipline):
-        if isinstance(discipline, disp.Barbarian):
+        if isinstance(discipline, discipline.Barbarian):
             #Greataxe OR any martial mele
             #2 HandAxe OR any simple weapon
             #explorer's pack and 4 javelins

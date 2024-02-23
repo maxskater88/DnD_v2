@@ -22,6 +22,8 @@ print(player1.discipline.hit_die)
 print(player1.discipline.hit_die)
 print(player1.discipline.hit_die)
 print(player1.discipline.hit_die)
+
+
 # print(player1.race.race_mod)
 # print(player1.race.description)
 # print(player1.discipline.class_name)

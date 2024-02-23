@@ -15,6 +15,13 @@ import Dnd_Weapons_MRange as MR
 #       DICIPLINES (CLASSES)
 ################################################################################
 class Discipline: 
+    
+    # skills = {  'Strength':['Athletics'],
+    #             'Dexterity':['Acrobatics', 'Slight of Hand', 'Stealth'],
+    #             'Intelligence':['Arcana','History','Investigation','Nature','Religion'],
+    #             'Wisdom':['Animal Handling','Insight','Medicine','Perception','Survival'],
+    #             'Charisma':['Deception','Intimidation','Performance','Persuasion']}
+    
     def __init__(self):
         self.description = ""
         self.class_name = ""
