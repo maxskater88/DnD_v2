@@ -73,6 +73,7 @@ class player:
         
         self.base_stats =   player.M_Stat
         self.all_races = player.all_races
+        self.level = 0
         if randomize_char:
             #Randomize
             pass
@@ -99,7 +100,7 @@ class player:
                     print(f"{randomize_stats} is not an integer.")
             if randomize_stats:
                 #Randomize
-                self.base_stats = player.roll_main_stats_rand(self.base_stats)
+                self.base_stats = player.main_stats_rand_roll(self.base_stats)
             else:
                 #Enter Stats by Hand
                 #Currently just requiring a value between min/max possible roll
@@ -218,7 +219,7 @@ class player:
     def count_chars(self):
         player.num_of_players += 1
     
-    def roll_main_stats_rand(Main_Stat):
+    def main_stats_rand_roll(Main_Stat):
         '''
         Roll random initial stats. 
         Roll 4 x 6-sided die and sum the top 3 values for each stat (not HP)
@@ -235,5 +236,29 @@ class player:
             Main_Stat[stat] += sol
         return Main_Stat
     
+    def main_stats_select(Main_Stat):
+        '''
+        Person gets to select stat combination.
+        Stats have a cost with a maximum point value that cannot be exceeded.
+        '''
 
-            
+        def get_player_selections(Main_Stat):
+            points_cost = {8:0, 9:1, 10:2, 11:3, 12:4, 13:5, 14:7, 15:9}
+            max_cost = 27
+            current_cost = 0
+            stats = []
+            print(f"For stats, you must select a value for each stat from the list:\n{points_cost}\nAnd the total of that stats' cost must be at most: {max_cost}")
+            for stat in player.stats:
+                try:
+                    player_stat = int(input(f"Select a value for {stat}:\n"))
+                    stats.append(player_stat)
+                    current_cost += points_cost[player_stat]
+                except ValueError:
+                    print("Please enter a number")
+            if current_cost > max_cost:
+                get_player_selections(Main_Stat, points_cost, max_cost)
+            else:
+                #Does this work correctly?
+                for pos, stat in enumerate(player.stats):
+                    Main_Stat[stat] = stats[pos]
+                return 
