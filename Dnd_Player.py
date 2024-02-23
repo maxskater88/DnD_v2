@@ -192,7 +192,7 @@ class player:
                 inital = [MM.GreatAxe]
             elif wep_sel == "1b":
                 inital = input("Enter the Wepon you want")
-                #Convert this to a class? Is this A LOT of Elifs?
+                #Convert this to a class? Is this A LOT of Elifs? maybe a check in list of strings, then an eval func?
                 #globals()[class_name]
             elif wep_sel == "2a":
                 pass
@@ -241,7 +241,6 @@ class player:
         Person gets to select stat combination.
         Stats have a cost with a maximum point value that cannot be exceeded.
         '''
-
         def get_player_selections(Main_Stat):
             points_cost = {8:0, 9:1, 10:2, 11:3, 12:4, 13:5, 14:7, 15:9}
             max_cost = 27
