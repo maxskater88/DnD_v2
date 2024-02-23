@@ -247,7 +247,7 @@ class player:
             current_cost = 0
             stats = []
             print(f"For stats, you must select a value for each stat from the list:\n{points_cost}\nAnd the total of that stats' cost must be at most: {max_cost}")
-            for stat in player.stats:
+            for stat in player.stats[:-2]:
                 try:
                     player_stat = int(input(f"Select a value for {stat}:\n"))
                     stats.append(player_stat)
@@ -258,6 +258,7 @@ class player:
                 get_player_selections(Main_Stat, points_cost, max_cost)
             else:
                 #Does this work correctly?
-                for pos, stat in enumerate(player.stats):
+                for pos, stat in enumerate(player.stats[:-2]):
                     Main_Stat[stat] = stats[pos]
-                return 
+                #Need to add HP and AC
+               
