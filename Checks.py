@@ -19,15 +19,5 @@ class Checks:
          self.advantage = 5
          
     def strength(self):
-        
-    
-    
-        
-
-
-
-
-
-
-
+        pass
 
