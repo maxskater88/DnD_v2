@@ -40,6 +40,8 @@ class player:
     stats = (       "Strength",      "Dexterity",        "Charisma",
                     "Wisdom",        "Intelligence",     "Constitution")
     
+    stats_additional = ("HP", "Armor Class")
+    
     M_Stat = {       "Strength": 0,  "Dexterity":    0,   "Charisma":     0, 
                      "Wisdom":   0,  "Intelligence": 0,   "Constitution": 0, 
                      "HP":       0,  "Armor Class":  0}
@@ -52,130 +54,197 @@ class player:
     for subraces in races.values():
         for race in subraces:
             all_races.append(race)
-    
+  
+  
     ###INIT###        
     def __init__(self):
         player.count_chars(self)
-        print(f"--->  CREATING CHAR #{player.num_of_players}")
+        self.base_stats =   player.M_Stat
+        self.all_races = player.all_races
+        self.level = 0
         
+        print(f"--->  CREATING CHAR #{player.num_of_players}")
+        randomize_char = player.build_custom_or_rand()
+        
+        # Get Primary Character info (race, class, starting equipment)
+        # Note: Could create a binary and a list user input method so that I dont have to code that out every time
+        self.race = player.get_race(self.all_races, randomize_char)
+        self.discipline = player.get_class(self.FightClasses, randomize_char)
+        player.get_initial_stats(self, randomize_char)
+        # self.starting_weps = starting_weps
+
+
+    def build_custom_or_rand():
         #Get Player to Input Custom Char Selection or Randomized
         while True:
             try:
-                randomize_char = input("--->Enter 1 for a randomized char\
-                                       \n--->Enter 0 for a customized char\n")
+                randomize_char = input("::Enter 1 for a randomized char\
+                                      \n::Enter 0 for a customized char\n")
                 randomize_char = int(randomize_char)
                 if 0 <= randomize_char <= 1:
                     break
                 else:
                     print(f"{randomize_char} is not 0 or 1.")
             except ValueError:
-                print(f"{randomize_char} is not an integer.")
-        
-        self.base_stats =   player.M_Stat
-        self.all_races = player.all_races
-        self.level = 0
-        if randomize_char:
-            #Randomize
-            pass
-        else:
-            #Customize
-            race = player.get_race(self.all_races)
-            discipline = player.get_class(self.FightClasses)
-            starting_weps = player.get_starting_equip(discipline)
-            self.race = race
-            self.discipline = discipline
-            self.starting_weps = starting_weps
-
-            while True:
-                #Get Player to Rand (let game roll 4xD6) stats or set their own stat values
-                try:
-                    randomize_stats = input("---> Enter 1 for random stats\
-                                            \n---> Enter 0 to set stats\n")
-                    randomize_stats = int(randomize_stats)
-                    if 0 <= randomize_stats <= 1:
-                        break
-                    else:
-                        print(f"{randomize_stats} is not 0 or 1.")
-                except ValueError:
-                    print(f"{randomize_stats} is not an integer.")
-            if randomize_stats:
-                #Randomize
-                self.base_stats = player.main_stats_rand_roll(self.base_stats)
-            else:
-                #Enter Stats by Hand
-                #Currently just requiring a value between min/max possible roll
-                for stat in player.stats:
-                    while True:
-                        try:
-                            self.base_stats[stat] = input(f"Enter {stat}: ")
-                            self.base_stats[stat] = int(self.base_stats[stat])
-                            if 3 <= self.base_stats[stat] <= 18:
-                                break
-                            else:
-                                print(f"{self.base_stats[stat]} is not between 3 and 18.")
-                        except ValueError:
-                            print(f"{self.base_stats[stat]} is not an integer.")
+                print(f"{randomize_char} is not an integer.")  
+        return randomize_char     
+ 
                          
-    def get_race(all_races):
+    def get_race(all_races, randomize):
+        
+        #helper funct to get race obj back
+        def get_race_obj(selected_race):
+            if selected_race == "Lightfoot Halfling":
+                Race = rces.Lightfoot_Halfling()
+            elif selected_race == "Stout Halfling":
+                Race = rces.Stout_Halfling()
+            elif selected_race == "High Elf":
+                Race = rces.High_Elf()
+            elif selected_race == "Wood Elf":
+                Race = rces.Wood_Elf()
+            elif selected_race == "Hill Dwarf":
+                Race = rces.Hill_Dwarf()
+            elif selected_race == "Mountain Dwarf":
+                Race = rces.Mountain_Dwarf()
+            elif selected_race == "Human":
+                Race = rces.Human()
+            else:
+                print("ERROR E0001")
+            return Race
+        
         #Could add exception to load previous char 
         selected_race = None
         Race = None
-        #have user select race/sub-race
+
+        if randomize:
+            rnd_num = rnd.randrange(len(all_races))
+            return get_race_obj(all_races[rnd_num])   
+        
         print("LETS BUILD A CHARACTER TO PLAY IN OUR D&D GAME!")
         while selected_race not in(all_races):
             selected_race = input(f"Select a Race:\n {all_races} \n")
-        #assign the Race to a Class Object based on what was entered
-        if selected_race == "Lightfoot Halfling":
-            Race = rces.Lightfoot_Halfling()
-        elif selected_race == "Stout Halfling":
-            Race = rces.Stout_Halfling()
-        elif selected_race == "High Elf":
-            Race = rces.High_Elf()
-        elif selected_race == "Wood Elf":
-            Race = rces.Wood_Elf()
-        elif selected_race == "Hill Dwarf":
-            Race = rces.Hill_Dwarf()
-        elif selected_race == "Mountain Dwarf":
-            Race = rces.Mountain_Dwarf()
-        else:
-            print("ERROR E0001")
-        return Race
+        return get_race_obj(selected_race)
 
-    def get_class(FightClasses):
+
+    def get_class(FightClasses, randomize):
         selected_class = ""
+        
+        #helper funct to get class obj back
+        def get_class_obj(selected_class):
+            if   selected_class == "Barbarian":
+                selected_class = discipline.Barbarian()
+            elif selected_class == "Bard":
+                selected_class = discipline.Bard()
+            elif selected_class == "Cleric":
+                selected_class = discipline.Cleric()
+            elif selected_class == "Druid":
+                selected_class = discipline.Druid()
+            elif selected_class == "Fighter":
+                selected_class = discipline.Fighter()
+            elif selected_class == "Monk":
+                selected_class = discipline.Monk()
+            elif selected_class == "Paladin":
+                selected_class = discipline.Paladin()
+            elif selected_class == "Ranger":
+                selected_class = discipline.Ranger()  
+            elif selected_class == "Rogue":
+                selected_class = discipline.Rogue()
+            elif selected_class == "Sorcerer":
+                selected_class = discipline.Sorcerer()
+            elif selected_class == "Warlock":
+                selected_class = discipline.Warlock()
+            elif selected_class == "Wizard":
+                selected_class = discipline.Wizard()
+            else:
+                print("ERROR E0002")
+            return selected_class    
+                
+        if randomize:
+            rnd_num = rnd.randrange(len(FightClasses))
+            return get_class_obj(FightClasses[rnd_num])
+        
         print("LETS CHOOSE A CLASS FOR OUR CHARACTER!")
         while selected_class not in(FightClasses):
             selected_class = input(f"Select a Class:\n {FightClasses} \n")
-        #Assigning Class of Warrior to a Class Object based on what was entered 
-        if   selected_class == "Barbarian":
-            selected_class = discipline.Barbarian()
-        elif selected_class == "Bard":
-            selected_class = discipline.Bard()
-        elif selected_class == "Cleric":
-            selected_class = discipline.Cleric()
-        elif selected_class == "Druid":
-            selected_class = discipline.Druid()
-        elif selected_class == "Fighter":
-            selected_class = discipline.Fighter()
-        elif selected_class == "Monk":
-            selected_class = discipline.Monk()
-        elif selected_class == "Paladin":
-            selected_class = discipline.Paladin()
-        elif selected_class == "Ranger":
-            selected_class = discipline.Ranger()  
-        elif selected_class == "Rogue":
-            selected_class = discipline.Rogue()
-        elif selected_class == "Sorcerer":
-            selected_class = discipline.Sorcerer()
-        elif selected_class == "Warlock":
-            selected_class = discipline.Warlock()
-        elif selected_class == "Wizard":
-            selected_class = discipline.Wizard()
-        else:
-            print("ERROR E0002")
-        return selected_class    
+        return get_class_obj(selected_class)
 
-    def get_starting_equip(discipline):
+
+    def get_initial_stats(self, randomize):
+        
+        def usr_input_stat(stat):
+            while True:
+                try:
+                    player_stat = int(input(f"Select a value for {stat}:\n"))
+                    if 8 <= player_stat <= 15:
+                        break
+                except ValueError:
+                    print("Please enter a number")   
+            return player_stat
+
+        if randomize:
+            self.base_stats = player.main_stats_rand_roll(self.base_stats)
+        else:
+            points_cost = {8:0, 9:1, 10:2, 11:3, 12:4, 13:5, 14:7, 15:9}
+            max_cost = 27
+            current_cost = 0
+            print(f"For each stat you must select a value from the list:\n{points_cost}\nAnd the total of that stats' cost must be at most: {max_cost}")
+            for stat in player.stats:
+                while True:
+                    stat_cur = usr_input_stat(stat)
+                    current_cost += points_cost[stat_cur]
+                    if current_cost > max_cost:
+                        current_cost -= points_cost[stat_cur]
+                    else:
+                        break
+                self.base_stats[stat] += stat_cur
+                
+    
+    def main_stats_select(Main_Stat):
+        '''
+        Person gets to select stat combination.
+        Stats have a cost with a maximum point value that cannot be exceeded.
+        '''
+        def get_player_selections(Main_Stat):
+            points_cost = {8:0, 9:1, 10:2, 11:3, 12:4, 13:5, 14:7, 15:9}
+            max_cost = 27
+            current_cost = 0
+            stats = []
+            print(f"For stats, you must select a value for each stat from the list:\n{points_cost}\nAnd the total of that stats' cost must be at most: {max_cost}")
+            for stat in player.stats[:-2]:
+                try:
+                    player_stat = player.get_initial_stats(random_char).usr_input_stat()
+                    stats.append(player_stat)
+                    current_cost += points_cost[player_stat]
+                except ValueError:
+                    print("Please enter a number")
+            if current_cost > max_cost:
+                get_player_selections(Main_Stat, points_cost, max_cost)
+            else:
+                #Does this work correctly?
+                for pos, stat in enumerate(player.stats[:-2]):
+                    Main_Stat[stat] = stats[pos]
+                #Need to add HP and AC
+      
+      
+    def main_stats_rand_roll(Main_Stat):
+        '''
+        Roll random initial stats. 
+        Roll 4 x 6-sided die and sum the top 3 values for each stat (not HP)
+        '''
+        for stat in player.stats:
+            sumTot_orig = []
+            sumTot_ord = []
+            for i in range(4):
+                sumTot_orig.append(player.D6_Roll())
+            sumTot_ord = list(sumTot_orig)
+            sumTot_ord.sort(reverse=True)
+            sol = sum(sumTot_ord[0:3])
+            print(f"For {stat} your d6 roll(s) are: {sumTot_orig} and your total is {sol}")
+            Main_Stat[stat] += sol
+        return Main_Stat
+
+
+    def get_starting_equip(discipline, randomize):
         if isinstance(discipline, discipline.Barbarian):
             #Greataxe OR any martial mele
             #2 HandAxe OR any simple weapon
@@ -204,7 +273,6 @@ class player:
                 print("ERROR E0003")
 
 
-
     def D4_Roll():
         return rnd.randint(1,4)
     def D6_Roll():
@@ -214,51 +282,12 @@ class player:
     def D10_Roll():
         return rnd.randint(1,10)
     def D12_Roll():
-        return rnd.randint(1,12)  
+        return rnd.randint(1,12) 
+    def D20_Roll():
+        return rnd.randint(1,20) 
     
     def count_chars(self):
         player.num_of_players += 1
     
-    def main_stats_rand_roll(Main_Stat):
-        '''
-        Roll random initial stats. 
-        Roll 4 x 6-sided die and sum the top 3 values for each stat (not HP)
-        '''
-        for stat in player.stats:
-            sumTot_orig = []
-            sumTot_ord = []
-            for i in range(4):
-                sumTot_orig.append(player.D6_Roll())
-            sumTot_ord = list(sumTot_orig)
-            sumTot_ord.sort(reverse=True)
-            sol = sum(sumTot_ord[0:3])
-            print(f"For {stat} your d6 roll(s) are: {sumTot_orig} and your total is {sol}")
-            Main_Stat[stat] += sol
-        return Main_Stat
-    
-    def main_stats_select(Main_Stat):
-        '''
-        Person gets to select stat combination.
-        Stats have a cost with a maximum point value that cannot be exceeded.
-        '''
-        def get_player_selections(Main_Stat):
-            points_cost = {8:0, 9:1, 10:2, 11:3, 12:4, 13:5, 14:7, 15:9}
-            max_cost = 27
-            current_cost = 0
-            stats = []
-            print(f"For stats, you must select a value for each stat from the list:\n{points_cost}\nAnd the total of that stats' cost must be at most: {max_cost}")
-            for stat in player.stats[:-2]:
-                try:
-                    player_stat = int(input(f"Select a value for {stat}:\n"))
-                    stats.append(player_stat)
-                    current_cost += points_cost[player_stat]
-                except ValueError:
-                    print("Please enter a number")
-            if current_cost > max_cost:
-                get_player_selections(Main_Stat, points_cost, max_cost)
-            else:
-                #Does this work correctly?
-                for pos, stat in enumerate(player.stats[:-2]):
-                    Main_Stat[stat] = stats[pos]
-                #Need to add HP and AC
+
                
