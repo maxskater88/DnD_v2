@@ -85,9 +85,9 @@ class player:
         print("LETS BUILD A CHARACTER TO PLAY IN OUR D&D GAME!")
         selected_race = None
         if randomize:
-            rnd_num = rnd.randrange(len(all_races))
-            print(f"Your randomly select race is: {all_races[rnd_num]}")
-            return player.get_race_obj(all_races[rnd_num])   
+            rnd_int = rnd.randrange(len(all_races))
+            print(f"Your randomly selected race is: {all_races[rnd_int]}")
+            return player.get_race_obj(all_races[rnd_int])   
         
         while selected_race not in(all_races):
             selected_race = input(f"Select a Race:\n {all_races} \n")
@@ -98,9 +98,9 @@ class player:
         print("LETS CHOOSE A CLASS FOR OUR CHARACTER!")
         selected_class = ""
         if randomize:
-            rnd_num = rnd.randrange(len(FightClasses))
-            print(f"Your randomly selected class is: {FightClasses[rnd_num]}")
-            return player.get_class_obj(FightClasses[rnd_num])
+            rnd_int = rnd.randrange(len(FightClasses))
+            print(f"Your randomly selected class is: {FightClasses[rnd_int]}")
+            return player.get_class_obj(FightClasses[rnd_int])
     
         while selected_class not in(FightClasses):
             selected_class = input(f"Select a Class:\n {FightClasses} \n")
@@ -109,7 +109,7 @@ class player:
 
     def initial_stats(self, randomize):
         if randomize:
-            self.base_stats = player.main_stats_rand_roll()
+            self.base_stats = player.main_stats_rand_roll(self)
         else:
             points_cost = {8:0, 9:1, 10:2, 11:3, 12:4, 13:5, 14:7, 15:9}
             max_cost = 27
@@ -122,6 +122,8 @@ class player:
                     self.base_stats[stat] = stat_cur
                 if current_cost <= max_cost:
                     break
+                else:
+                    print(f"You choose too many stats: {self.base_stats}.\nYour total was {current_cost} out of {max_cost}")
 
 
     def main_stats_rand_roll(self):
@@ -130,14 +132,12 @@ class player:
         Roll 4 x 6-sided die and sum the top 3 values for each stat
         '''
         for stat in player.stats:
-            sumTot_orig = []
-            sumTot_ord = []
-            for i in range(4):
-                sumTot_orig.append(player.D6_Roll())
-            sumTot_ord = list(sumTot_orig).sort(reverse=True)
-            # sumTot_ord.sort(reverse=True)
-            sol = sum(sumTot_ord[0:3])
-            print(f"For {stat} your d6 roll(s) are: {sumTot_orig} and your total is {sol}")
+            sumTot = []
+            for _ in range(4):
+                sumTot.append(player.D6_Roll())
+            sumTot = sorted(list(sumTot), reverse=True)
+            sol = sum(sumTot[0:3])
+            print(f"For {stat} your d6 roll(s) are: {sumTot} and your total is {sol}")
             self.base_stats[stat] = sol
 
 
