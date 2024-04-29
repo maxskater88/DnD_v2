@@ -20,7 +20,7 @@ class Race:
     
     def __init__(self):
         self.abilities_names = []
-        self.description = ''''''
+        self.description = '''ENTER RACE INFO'''
         self.speed = 25
         self.size = "medium"
     
