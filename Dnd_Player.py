@@ -28,7 +28,9 @@ Structure:
 #       Create Player's Character
 ################################################################################
 class Player:
+    
     num_of_players = 0
+    
     size = 1
     
     stats = (       "Strength",      "Dexterity",        "Charisma",
@@ -55,13 +57,26 @@ class Player:
         print(f"--->  CREATING CHAR #{Player.num_of_players}")
         randomize_char = Player.build_custom_or_rand()
         
-        # Get Primary Character info (race, class, starting equipment)
-        # Note: Could create a binary and a list user input method so that I dont have to code that out every time
+        # Get Primary Character info (race, class)
         self.race = Rces._initial_race(self.all_races, randomize_char)
         self.discipline = Disp._initial_class(self.fighting_classes, randomize_char)
         Player._initial_stats(self, randomize_char)
-        # self.starting_weps = starting_weps
-        self.testing = True
+
+        # Start Here:
+        # Need to go through the info I have from the characters to make sure everything is put to gether
+        # Then I need to figure out the next logical steps of building the character sheet out - prob ask jonathan
+        # I think I want to avoid the "backpack" until the end if possible
+        
+        # With Initial information, we can [calculate]:
+        # [Stat Modifications]
+        for stat in Player.stats:
+            # NOTE: havent handled HP or AC
+            self.base_stats[stat] += self.race.race_mod[stat]
+        # [Class Primary Stat]
+        self.primary_class_stat = self.discipline.primary_ability
+        
+        # Given the Character Info, we can set [Skills] and assign [Starting Equipment]
+        self._break_point = True
 
 
     def count_chars(self):
@@ -69,7 +84,7 @@ class Player:
         
 
     def build_custom_or_rand():
-        #Get Player to Input Custom Char Selection or Randomized
+        #Get Player to Input Custom Char Selection or Randomized Character Selection
         randomize_char = Player.check_input("::Enter 0 for a customized char\n::Enter 1 for a randomized char\n", 0, 1)
         return randomize_char     
 
@@ -78,14 +93,15 @@ class Player:
         if randomize:
             Player._main_stats_rand_roll(self)
         else:
-            points_cost = {8:0, 9:1, 10:2, 11:3, 12:4, 13:5, 14:7, 15:9}
+            points_cost = {8:0, 9:1, 10:2, 11:3, 12:4, 13:5, 14:7, 15:9, 16:11, 17:15, 18:20, 19:25}
             max_cost = 27
+            min_val, max_val = min(points_cost.keys()), max(points_cost.keys())
             print(f"For each stat you must select a value from the list:\n{points_cost}\nAnd the total of that stats' cost must be at most: {max_cost}")
             #There is a better way to do this loop...
             while True:
                 current_cost = 0
                 for stat in Player.stats:
-                    stat_cur = Player.check_input(f"Select a value for {stat}:\n", 8, 15)
+                    stat_cur = Player.check_input(f"Select a value in [{min_val},{max_val}] for {stat}:\n", min_val, max_val)
                     current_cost += points_cost[stat_cur]
                     self.base_stats[stat] = stat_cur
                 if current_cost <= max_cost:
