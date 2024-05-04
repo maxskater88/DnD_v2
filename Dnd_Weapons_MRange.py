@@ -5,7 +5,7 @@
 #
 ################################################################################
 import Dnd_Weapons as  weap
-import Dnd_Player as  pler
+from Dnd_Dice import Dice
 
 ################################################################################
 #       WEAPONS -- MARTIAL RANGE
@@ -40,7 +40,7 @@ class HandCrosbow(Martial_Range):
         self.cost = {"cp": 0, "sp": 0, "gp": 75}
         self.weight = 3
         self.dmg_type = "piercing"
-        self.dmg_roll = [pler.player.D6_Roll]
+        self.dmg_roll = [Dice.D6_Roll]
         self.rarity = "common"
         self.properties = ['ammunition', 'light', 'loading']
         self.range = [30,120]
@@ -52,7 +52,7 @@ class HeavyCrossbow(Martial_Range):
         self.cost = {"cp": 0, "sp": 0, "gp": 50}
         self.weight = 18
         self.dmg_type = "piercing"
-        self.dmg_roll = [pler.player.D10_Roll]
+        self.dmg_roll = [Dice.D10_Roll]
         self.rarity = "common"
         self.properties = ['ammunition', 'heavy', 'loading']
         self.range = [100,400]
@@ -64,7 +64,7 @@ class Longbow(Martial_Range):
         self.cost = {"cp": 0, "sp": 0, "gp": 50}
         self.weight = 2
         self.dmg_type = "piercing"
-        self.dmg_roll = [pler.player.D8_Roll]
+        self.dmg_roll = [Dice.D8_Roll]
         self.rarity = "common"
         self.properties = ['ammunition', 'heavy', 'two_hand']
         self.range = [150,600]

@@ -5,7 +5,7 @@
 #
 ################################################################################
 import Dnd_Weapons as  weap
-import Dnd_Player as  pler
+from Dnd_Dice import Dice
 
 ################################################################################
 #       WEAPONS -- SIMPLE RANGE
@@ -28,7 +28,7 @@ class LightCrossbow(Simple_Range):
         self.cost = {"cp": 0, "sp": 0, "gp": 25}
         self.weight = 5
         self.dmg_type = "piercing"
-        self.dmg_roll = [pler.player.D8_Roll]
+        self.dmg_roll = [Dice.D8_Roll]
         self.rarity = "common"
         self.properties = ['ammunition', 'loading', 'two_hand']
         self.range = [80,320]
@@ -40,7 +40,7 @@ class Dart(Simple_Range):
         self.cost = {"cp": 5, "sp": 0, "gp": 0}
         self.weight = 0.25
         self.dmg_type = "piercing"
-        self.dmg_roll = [pler.player.D4_Roll]
+        self.dmg_roll = [Dice.D4_Roll]
         self.rarity = "common"
         self.properties = ['finesse', 'thrown']
         self.range = [20,60]
@@ -52,7 +52,7 @@ class Shortbow(Simple_Range):
         self.cost = {"cp": 0, "sp": 0, "gp": 25}
         self.weight = 2
         self.dmg_type = "piercing"
-        self.dmg_roll = [pler.player.D6_Roll]
+        self.dmg_roll = [Dice.D6_Roll]
         self.rarity = "common"
         self.properties = ['ammunition', 'two_hand']
         self.range = [80,320]
@@ -64,7 +64,7 @@ class Sling(Simple_Range):
         self.cost = {"cp": 0, "sp": 1, "gp": 0}
         self.weight = 0.01
         self.dmg_type = "bludgeoning"
-        self.dmg_roll = [pler.player.D4_Roll]
+        self.dmg_roll = [Dice.D4_Roll]
         self.rarity = "common"
         self.properties = ['ammunition']
         self.range = [30,120]

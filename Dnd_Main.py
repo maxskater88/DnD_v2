@@ -4,7 +4,7 @@
 #       IMPORTS
 #
 ################################################################################
-import Dnd_Player as  pler
+import Dnd_Player as  Pler
 #import Dnd_Classes as disp
 #import Dnd_Races as   rces
 #import Dnd_Weapons as weap
@@ -12,9 +12,9 @@ import Dnd_Player as  pler
 ################################################################################
 #       MAIN
 ################################################################################
-print(pler.player.num_of_players)
-player1 = pler.player()
-player2 = pler.player()
+print(Pler.Player.num_of_players)
+player1 = Pler.Player()
+player2 = Pler.Player()
 print('\n\n\n\n')
 print(player1.discipline.hit_die)
 print(player1.discipline.hit_die)

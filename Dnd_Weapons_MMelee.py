@@ -5,8 +5,7 @@
 #
 ################################################################################
 import Dnd_Weapons as  weap
-import Dnd_Player as  pler
-
+from Dnd_Dice import Dice
 ################################################################################
 #       WEAPONS -- MARTIAL MELEE
 ################################################################################
@@ -28,7 +27,7 @@ class BattleAxe(Martial_Melee):
         self.cost = {"cp": 0, "sp": 0, "gp": 10}
         self.weight = 4
         self.dmg_type = "slashing"
-        self.dmg_roll = [pler.player.D8_Roll]
+        self.dmg_roll = [Dice.D8_Roll]
         self.rarity = "common"
         self.properties = ['versatile']
         
@@ -39,7 +38,7 @@ class Flail(Martial_Melee):
         self.cost = {"cp": 0, "sp": 0, "gp": 10}
         self.weight = 2
         self.dmg_type = "bludgeoning"
-        self.dmg_roll = [pler.player.D8_Roll]
+        self.dmg_roll = [Dice.D8_Roll]
         self.rarity = "common"
         self.properties = []
         
@@ -50,7 +49,7 @@ class Glaive(Martial_Melee):
         self.cost = {"cp": 0, "sp": 0, "gp": 20}
         self.weight = 6
         self.dmg_type = "slashing"
-        self.dmg_roll = [pler.player.D10_Roll]
+        self.dmg_roll = [Dice.D10_Roll]
         self.rarity = "common"
         self.properties = ['heavy', 'reach', 'two_hand']
         
@@ -61,7 +60,7 @@ class GreatAxe(Martial_Melee):
         self.cost = {"cp": 0, "sp": 0, "gp": 30}
         self.weight = 7
         self.dmg_type = "slashing"
-        self.dmg_roll = [pler.player.D12_Roll]
+        self.dmg_roll = [Dice.D12_Roll]
         self.rarity = "common"
         self.properties = ['heavy', 'two_hand']
 
@@ -72,7 +71,7 @@ class GreatSword(Martial_Melee):
         self.cost = {"cp": 0, "sp": 0, "gp": 50}
         self.weight = 6
         self.dmg_type = "slashing"
-        self.dmg_roll = [pler.player.D6_Roll, pler.player.D6_Roll]
+        self.dmg_roll = [Dice.D6_Roll, Dice.D6_Roll]
         self.rarity = "common"
         self.properties = ['heavy', 'two_hand']
         
@@ -83,7 +82,7 @@ class Halberd(Martial_Melee):
         self.cost = {"cp": 0, "sp": 0, "gp": 20}
         self.weight = 6
         self.dmg_type = "slashing"
-        self.dmg_roll = [pler.player.D10_Roll]
+        self.dmg_roll = [Dice.D10_Roll]
         self.rarity = "common"
         self.properties = ['heavy', 'reach', 'two_hand']
         
@@ -94,7 +93,7 @@ class Lance(Martial_Melee):
         self.cost = {"cp": 0, "sp": 0, "gp": 10}
         self.weight = 6
         self.dmg_type = "piercing"
-        self.dmg_roll = [pler.player.D12_Roll]
+        self.dmg_roll = [Dice.D12_Roll]
         self.rarity = "common"
         self.properties = ['special', 'reach']
         
@@ -105,7 +104,7 @@ class Longsword(Martial_Melee):
         self.cost = {"cp": 0, "sp": 0, "gp": 15}
         self.weight = 3
         self.dmg_type = "slashing"
-        self.dmg_roll = [pler.player.D8_Roll]
+        self.dmg_roll = [Dice.D8_Roll]
         self.rarity = "common"
         self.properties = ['versatile']
 
@@ -116,7 +115,7 @@ class Maul(Martial_Melee):
         self.cost = {"cp": 0, "sp": 0, "gp": 10}
         self.weight = 10
         self.dmg_type = "bludgeoning"
-        self.dmg_roll = [pler.player.D6_Roll, pler.player.D6_Roll]
+        self.dmg_roll = [Dice.D6_Roll, Dice.D6_Roll]
         self.rarity = "common"
         self.properties = ['heavy', 'two_hand']
         
@@ -127,7 +126,7 @@ class Morningstar(Martial_Melee):
         self.cost = {"cp": 0, "sp": 0, "gp": 15}
         self.weight = 4
         self.dmg_type = "piercing"
-        self.dmg_roll = [pler.player.D8_Roll]
+        self.dmg_roll = [Dice.D8_Roll]
         self.rarity = "common"
         self.properties = []
         
@@ -138,7 +137,7 @@ class Pike(Martial_Melee):
         self.cost = {"cp": 0, "sp": 0, "gp": 5}
         self.weight = 18
         self.dmg_type = "piercing"
-        self.dmg_roll = [pler.player.D10_Roll]
+        self.dmg_roll = [Dice.D10_Roll]
         self.rarity = "common"
         self.properties = ['heavy', 'reach', 'two_hand']
         
@@ -149,7 +148,7 @@ class Rapier(Martial_Melee):
         self.cost = {"cp": 0, "sp": 0, "gp": 25}
         self.weight = 2
         self.dmg_type = "piercing"
-        self.dmg_roll = [pler.player.D8_Roll]
+        self.dmg_roll = [Dice.D8_Roll]
         self.rarity = "common"
         self.properties = ['finesse']
 
@@ -160,7 +159,7 @@ class Scimitar(Martial_Melee):
         self.cost = {"cp": 0, "sp": 0, "gp": 25}
         self.weight = 3
         self.dmg_type = "slashing"
-        self.dmg_roll = [pler.player.D6_Roll]
+        self.dmg_roll = [Dice.D6_Roll]
         self.rarity = "common"
         self.properties = ['finesse', 'light']
         
@@ -171,7 +170,7 @@ class Shortsword(Martial_Melee):
         self.cost = {"cp": 0, "sp": 0, "gp": 10}
         self.weight = 2
         self.dmg_type = "piercing"
-        self.dmg_roll = [pler.player.D6_Roll]
+        self.dmg_roll = [Dice.D6_Roll]
         self.rarity = "common"
         self.properties = ['finesse', 'light']
         
@@ -182,7 +181,7 @@ class Trident(Martial_Melee):
         self.cost = {"cp": 0, "sp": 0, "gp": 5}
         self.weight = 4
         self.dmg_type = "piercing"
-        self.dmg_roll = [pler.player.D6_Roll]
+        self.dmg_roll = [Dice.D6_Roll]
         self.rarity = "common"
         self.properties = ['versatile', 'thrown']
         self.range = [20,60]
@@ -194,7 +193,7 @@ class Warpick(Martial_Melee):
         self.cost = {"cp": 0, "sp": 0, "gp": 5}
         self.weight = 2
         self.dmg_type = "piercing"
-        self.dmg_roll = [pler.player.D8_Roll]
+        self.dmg_roll = [Dice.D8_Roll]
         self.rarity = "common"
         self.properties = []
 
@@ -205,7 +204,7 @@ class Warhammer(Martial_Melee):
         self.cost = {"cp": 0, "sp": 0, "gp": 15}
         self.weight = 2
         self.dmg_type = "bludgeoning"
-        self.dmg_roll = [pler.player.D8_Roll]
+        self.dmg_roll = [Dice.D8_Roll]
         self.rarity = "common"
         self.properties = ['versatile']
         
@@ -216,7 +215,7 @@ class Whip(Martial_Melee):
         self.cost = {"cp": 0, "sp": 0, "gp": 2}
         self.weight = 3
         self.dmg_type = "slashing"
-        self.dmg_roll = [pler.player.D4_Roll]
+        self.dmg_roll = [Dice.D4_Roll]
         self.rarity = "common"
         self.properties = ['finesse', 'reach']
 

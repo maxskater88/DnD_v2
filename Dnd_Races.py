@@ -4,6 +4,7 @@
 #       IMPORTS
 #
 ################################################################################
+import random as rnd
 # import Dnd_Player as  pler
 # import Dnd_Weapons as weap 
 # import Dnd_Races as   rces
@@ -12,6 +13,17 @@
 #       RACES
 ################################################################################
 class Race:
+    
+    races = {"Dwarf":    ["Hill Dwarf",         "Mountain Dwarf"], 
+             "Elf":      ["High Elf",           "Wood Elf"],
+             "Halfling": ["Lightfoot Halfling", "Stout Halfling"],
+             "Human":    ["Human"]}  
+    
+    all_races = []
+    for subraces in races.values():
+        for race in subraces:
+            all_races.append(race)
+    
     race_mod = {"Strength": 0,  "Dexterity":    0,   "Charisma":     0, 
                 "Wisdom":   0,  "Intelligence": 0,   "Constitution": 0, 
                 "HP":       0,  "Armor Class":  0}
@@ -23,6 +35,40 @@ class Race:
         self.description = '''ENTER RACE INFO'''
         self.speed = 25
         self.size = "medium"
+    
+    def _initial_race(all_races, randomize):
+        #Could add exception to load previous char 
+        print("LETS BUILD A CHARACTER TO PLAY IN OUR D&D GAME!")
+        selected_race = None
+        if randomize:
+            rnd_int = rnd.randrange(len(all_races))
+            print(f"Your randomly selected race is: {all_races[rnd_int]}")
+            return Race.get_race_obj(all_races[rnd_int])   
+        
+        while selected_race not in(all_races):
+            selected_race = input(f"Select a Race:\n {all_races} \n")
+        return Race.get_race_obj(selected_race)
+    
+    def get_race_obj(selected_race):
+        #helper funct to get race obj back
+        if selected_race == "Lightfoot Halfling":
+            Race = Lightfoot_Halfling()
+        elif selected_race == "Stout Halfling":
+            Race = Stout_Halfling()
+        elif selected_race == "High Elf":
+            Race = High_Elf()
+        elif selected_race == "Wood Elf":
+            Race = Wood_Elf()
+        elif selected_race == "Hill Dwarf":
+            Race = Hill_Dwarf()
+        elif selected_race == "Mountain Dwarf":
+            Race = Mountain_Dwarf()
+        elif selected_race == "Human":
+            Race = Human()
+        else:
+            print("ERROR E0001")
+        return Race
+    
     
 class Hill_Dwarf(Race):
     race_mod = {"Strength": 0,  "Dexterity":    0,   "Charisma":     0, 
