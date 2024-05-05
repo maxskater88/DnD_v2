@@ -137,7 +137,7 @@ class Player:
                 print("Please enter a number")   
         return player_input
 
-  
+ 
     def _get_starting_equip(discipline, randomize):        
         if isinstance(discipline, Dnd_Classes.Barbarian):
             #Greataxe OR any martial mele
