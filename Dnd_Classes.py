@@ -86,10 +86,8 @@ class Barbarian(Discipline):
         self.primary_ability = ("Strength")
         self.hit_die = Dice.D12_Roll()
         self.saving_throw = ("Strength", "Constitution")
-        self.weapon_prof = SM.Simple_Melee
         self.armor_prof = ['light armor', 'medium armor', 'shields']
         self.weaps_prof = [SM.Simple_Melee, MM.Martial_Melee]
-        self.test = 1
 
 class Bard(Discipline):
     def __init__(self):
@@ -99,8 +97,8 @@ class Bard(Discipline):
         self.class_name = "Bard"
         self.primary_ability = ("Charisma")
         self.saving_throw = ("Dexterity", "Charisma")
-        self.armor_prof = ['light armor', 'medium armor', 'shields']
-        
+        self.weapon_prof = [SM.Simple_Melee, SR.Simple_Range]
+        self.armor_prof = ['light armor']
         
 class Cleric(Discipline):
     def __init__(self):

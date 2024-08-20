@@ -53,6 +53,10 @@ class Player:
         self.all_races = copy.copy(Rces.all_races)
         self.fighting_classes = copy.copy(Disp.fighting_classes)
         self.level = 0
+        self.experience = 0
+        self.hit_points_current = 0
+        self.hit_points_temp = 0
+        self.death_saves = [None, None, None]
         
         print(f"--->  CREATING CHAR #{Player.num_of_players}")
         randomize_char = Player.build_custom_or_rand()
